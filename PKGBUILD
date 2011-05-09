@@ -1,7 +1,9 @@
-# Maintainer: judd <jvinet@zeroflux.org>
+# Maintainer:
+# Contributor: judd <jvinet@zeroflux.org>
+
 pkgname=util-linux
-pkgver=2.19
-pkgrel=4
+pkgver=2.19.1
+pkgrel=1
 pkgdesc="Miscellaneous system utilities for Linux"
 url="http://userweb.kernel.org/~kzak/util-linux-ng/"
 arch=('i686' 'x86_64')
@@ -14,7 +16,7 @@ license=('GPL2')
 options=('!libtool')
 source=(ftp://ftp.kernel.org/pub/linux/utils/${pkgname}/v2.19/${pkgname}-${pkgver}.tar.bz2)
 optdepends=('perl: for chkdupexe support')
-md5sums=('590ca71aad0b254e2631d84401f28255')
+md5sums=('3eab06f05163dfa65479c44e5231932c')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -26,6 +28,6 @@ build() {
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  mkdir -p "${pkgdir}/var/lib/hwclock"
+  install -dm755 "${pkgdir}/var/lib/hwclock"
   make DESTDIR="${pkgdir}" install
 }
