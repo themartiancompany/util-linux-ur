@@ -3,7 +3,7 @@
 
 pkgname=util-linux
 pkgver=2.21
-pkgrel=5
+pkgrel=6
 pkgdesc="Miscellaneous system utilities for Linux"
 url="http://www.kernel.org/pub/linux/utils/util-linux/"
 arch=('i686' 'x86_64')
@@ -29,7 +29,8 @@ build() {
               --libdir=/usr/lib \
               --enable-write \
               --enable-raw \
-              --disable-wall
+              --disable-wall \
+              --enable-libmount-mount
 
   make
 }
