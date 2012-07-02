@@ -3,7 +3,7 @@
 
 pkgname=util-linux
 pkgver=2.21.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Miscellaneous system utilities for Linux"
 url="http://www.kernel.org/pub/linux/utils/util-linux/"
 arch=('i686' 'x86_64')
@@ -20,9 +20,6 @@ backup=(etc/pam.d/chfn etc/pam.d/chsh etc/pam.d/login)
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-
-  # hardware clock
-  sed -e 's%etc/adjtime%var/lib/hwclock/adjtime%' -i include/pathnames.h
 
   ./configure --prefix=/usr \
               --libdir=/usr/lib \
@@ -46,8 +43,6 @@ package() {
   make DESTDIR="${pkgdir}" install
 
   cd "${pkgdir}"
-
-  install -dm755 var/lib/hwclock
 
   # broken tool, going away in next major release, so just remove it now
   rm "${pkgdir}"/usr/{bin/chkdupexe,share/man/man1/chkdupexe.1}
