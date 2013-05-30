@@ -3,7 +3,7 @@
 
 pkgname=util-linux
 pkgver=2.23.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Miscellaneous system utilities for Linux"
 url="http://www.kernel.org/pub/linux/utils/util-linux/"
 arch=('i686' 'x86_64')
@@ -38,7 +38,7 @@ build() {
   ./configure --prefix=/usr \
               --libdir=/usr/lib \
               --localstatedir=/run \
-              --enable-fs-paths-extra=/usr/bin:/usr/sbin \
+              --enable-fs-paths-extra=/usr/bin \
               --enable-raw \
               --enable-vipw \
               --enable-newgrp \
@@ -77,4 +77,10 @@ package() {
   # include tmpfiles fragment for uuidd
   # TODO(dreisner): offer this upstream?
   install -Dm644 "$srcdir/uuidd.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/uuidd.conf"
+
+  # usrmove
+  cd "$pkgdir"
+  mv {,usr/}sbin/* usr/bin
+  mv bin/* usr/bin
+  rmdir bin sbin usr/sbin
 }
