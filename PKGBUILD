@@ -9,9 +9,7 @@ pkgrel=1
 pkgdesc="Miscellaneous system utilities for Linux"
 url="http://www.kernel.org/pub/linux/utils/util-linux/"
 arch=('i686' 'x86_64')
-groups=('base' 'base-devel')
 makedepends=('systemd' 'python')
-# checkdepends=('bc')
 license=('GPL2')
 options=('strip' 'debug')
 source=("ftp://ftp.kernel.org/pub/linux/utils/$pkgname/v2.24/$pkgname-$pkgver.tar.xz"
@@ -42,16 +40,8 @@ build() {
               --enable-socket-activation \
               --with-python=3
 
-#              --enable-reset \ # part of ncurses
-#              --enable-last \ # not compat
-
   make
 }
-
-#check() {
-# fails for some reason in chroot, works outside
-#  make -C "$pkgname-$pkgver" check
-#}
 
 package_util-linux() {
   conflicts=('util-linux-ng' 'eject')
@@ -59,6 +49,7 @@ package_util-linux() {
   depends=('pam' 'shadow' 'coreutils' 'libsystemd' 'libutil-linux')
   optdepends=('python: python bindings to libmount')
   install=util-linux.install
+  groups=('base' 'base-devel')
   backup=(etc/pam.d/chfn
           etc/pam.d/chsh
           etc/pam.d/login
