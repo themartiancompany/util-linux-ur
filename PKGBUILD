@@ -5,7 +5,7 @@
 pkgbase=util-linux
 pkgname=(util-linux libutil-linux)
 pkgver=2.26
-pkgrel=1
+pkgrel=2
 pkgdesc="Miscellaneous system utilities for Linux"
 url="http://www.kernel.org/pub/linux/utils/util-linux/"
 arch=('i686' 'x86_64')
@@ -44,8 +44,9 @@ build() {
 }
 
 package_util-linux() {
-  conflicts=('util-linux-ng' 'eject')
-  provides=("util-linux-ng=$pkgver" 'eject')
+  conflicts=('util-linux-ng' 'eject' 'zramctl')
+  provides=("util-linux-ng=$pkgver" 'eject' 'zramctl')
+  replaces=('zramctl')
   depends=('pam' 'shadow' 'coreutils' 'libsystemd' 'libutil-linux')
   optdepends=('python: python bindings to libmount')
   install=util-linux.install
