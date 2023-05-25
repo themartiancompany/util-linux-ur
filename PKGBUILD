@@ -7,7 +7,7 @@ pkgname=(util-linux util-linux-libs)
 _pkgmajor=2.39
 _realver=${_pkgmajor}
 pkgver=${_realver/-/}
-pkgrel=2
+pkgrel=3
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/karelzak/util-linux'
 arch=('x86_64')
@@ -34,7 +34,7 @@ sha256sums=('32b30a336cda903182ed61feb3e9b908b762a5e66fe14e43efb88d37162075cb'
             '8ccec10a22523f6b9d55e0d6cbf91905a39881446710aa083e935e8073323376'
             'a22e0a037e702170c7d88460cc9c9c2ab1d3e5c54a6985cd4a164ea7beff1b36')
 
-preapre() {
+prepare() {
   cd "${pkgbase}-${_realver}"
 
   patch -Np1 < ../0001-libmount-don-t-call-hooks-after-mount-type-helper.patch
