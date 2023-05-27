@@ -7,7 +7,7 @@ pkgname=(util-linux util-linux-libs)
 _pkgmajor=2.39
 _realver=${_pkgmajor}
 pkgver=${_realver/-/}
-pkgrel=3
+pkgrel=4
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/karelzak/util-linux'
 arch=('x86_64')
@@ -17,6 +17,7 @@ options=('strip')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
 source=("https://www.kernel.org/pub/linux/utils/util-linux/v${_pkgmajor}/${pkgbase}-${_realver}.tar."{xz,sign}
         '0001-libmount-don-t-call-hooks-after-mount-type-helper.patch'
+        '0002-libmount-check-for-availability-of-mount-setattr.patch'
         pam-{login,common,runuser,su}
         'util-linux.sysusers'
         '60-rfkill.rules'
@@ -25,6 +26,7 @@ source=("https://www.kernel.org/pub/linux/utils/util-linux/v${_pkgmajor}/${pkgba
 sha256sums=('32b30a336cda903182ed61feb3e9b908b762a5e66fe14e43efb88d37162075cb'
             'SKIP'
             'e7c6a0375ca1bd4606f7a42882f20b8e3ce7c7107c790694e55699376377c0e1'
+            '6266b8733450af97bcf0f31fa9b21bad171b53b7b49a2954812c39ea70552cb5'
             '99cd77f21ee44a0c5e57b0f3670f711a00496f198fc5704d7e44f5d817c81a0f'
             '57e057758944f4557762c6def939410c04ca5803cbdd2bfa2153ce47ffe7a4af'
             '48d6fba767631e3dd3620cf02a71a74c5d65a525d4c4ce4b5a0b7d9f41ebfea1'
@@ -38,6 +40,7 @@ prepare() {
   cd "${pkgbase}-${_realver}"
 
   patch -Np1 < ../0001-libmount-don-t-call-hooks-after-mount-type-helper.patch
+  patch -Np1 < ../0002-libmount-check-for-availability-of-mount-setattr.patch
 }
 
 build() {
