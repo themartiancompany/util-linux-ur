@@ -7,7 +7,7 @@ pkgname=(util-linux util-linux-libs)
 _tag='8d7cca1a88bb347d7a0b5c32d2d2b1e8d71cafcc' # git rev-parse v${_tag_name}
 _tag_name=2.39
 pkgver=${_tag_name/-/}
-pkgrel=6
+pkgrel=7
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/karelzak/util-linux'
 arch=('x86_64')
@@ -37,6 +37,9 @@ sha256sums=('SKIP'
 _backports=(
   # current stable/v2.39
   "${_tag}..8c85b08057a4664efe856de49b798b87a4e091af"
+
+  # libmount: introduce LIBMOUNT_FORCE_MOUNT2={always,never,auto}
+  'fd6b4d94ff013dc7ed680d4e864610da5b9751f1'
 )
 
 _reverts=(
