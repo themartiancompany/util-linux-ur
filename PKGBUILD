@@ -7,7 +7,7 @@ pkgname=(util-linux util-linux-libs)
 _tag='8d7cca1a88bb347d7a0b5c32d2d2b1e8d71cafcc' # git rev-parse v${_tag_name}
 _tag_name=2.39
 pkgver=${_tag_name/-/}
-pkgrel=7
+pkgrel=8
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/karelzak/util-linux'
 arch=('x86_64')
@@ -24,7 +24,7 @@ source=("git+https://github.com/karelzak/util-linux#tag=${_tag}?signed"
         'rfkill-unblock_.service'
         'rfkill-block_.service')
 sha256sums=('SKIP'
-            '6a7985f6bb60b0e722dc1b059e62674116fb0e957bd6d08c72ceef85e8caddb4'
+            '8dbcac1b74fb79adb243cea56a0e5ed278a220c79a407672290b43d55d9e05b8'
             '99cd77f21ee44a0c5e57b0f3670f711a00496f198fc5704d7e44f5d817c81a0f'
             '57e057758944f4557762c6def939410c04ca5803cbdd2bfa2153ce47ffe7a4af'
             '48d6fba767631e3dd3620cf02a71a74c5d65a525d4c4ce4b5a0b7d9f41ebfea1'
