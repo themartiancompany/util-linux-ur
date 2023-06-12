@@ -17,14 +17,12 @@ license=('GPL2')
 options=('strip')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
 source=("git+https://github.com/karelzak/util-linux#tag=${_tag}?signed"
-        '0001-meson-install-setuid.patch'
         pam-{login,common,runuser,su}
         'util-linux.sysusers'
         '60-rfkill.rules'
         'rfkill-unblock_.service'
         'rfkill-block_.service')
 sha256sums=('SKIP'
-            '8dbcac1b74fb79adb243cea56a0e5ed278a220c79a407672290b43d55d9e05b8'
             '99cd77f21ee44a0c5e57b0f3670f711a00496f198fc5704d7e44f5d817c81a0f'
             '57e057758944f4557762c6def939410c04ca5803cbdd2bfa2153ce47ffe7a4af'
             '48d6fba767631e3dd3620cf02a71a74c5d65a525d4c4ce4b5a0b7d9f41ebfea1'
@@ -40,6 +38,9 @@ _backports=(
 
   # libmount: introduce LIBMOUNT_FORCE_MOUNT2={always,never,auto}
   'fd6b4d94ff013dc7ed680d4e864610da5b9751f1'
+
+  # meson: install setuid/setgid
+  '60d457f52991e6f6472171035974ce7a3ae621f3~1..cee78467bea45f7a4f890f0c65bd59441bd42697'
 )
 
 _reverts=(
