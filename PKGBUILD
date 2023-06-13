@@ -7,7 +7,7 @@ pkgname=(util-linux util-linux-libs)
 _tag='8d7cca1a88bb347d7a0b5c32d2d2b1e8d71cafcc' # git rev-parse v${_tag_name}
 _tag_name=2.39
 pkgver=${_tag_name/-/}
-pkgrel=8
+pkgrel=9
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/karelzak/util-linux'
 arch=('x86_64')
@@ -62,6 +62,10 @@ prepare() {
     git log --oneline -1 "${_c}"
     git revert -n "${_c}"
   done
+
+  # a dirty hack for now...
+  # https://github.com/util-linux/util-linux/issues/2310
+  sed -i 's|HAVE_PTY|HAVE_PTY_H|' login-utils/su-common.c
 }
 
 build() {
