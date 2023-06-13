@@ -62,8 +62,6 @@ prepare() {
     git log --oneline -1 "${_c}"
     git revert -n "${_c}"
   done
-
-  patch -Np1 < ../0001-meson-install-setuid.patch
 }
 
 build() {
