@@ -9,7 +9,7 @@ _tag_name=2.39
 pkgver=${_tag_name/-/}
 pkgrel=9
 pkgdesc='Miscellaneous system utilities for Linux'
-url='https://github.com/karelzak/util-linux'
+url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
 makedepends=('git' 'meson' 'asciidoctor' 'bash-completion' 'libcap-ng'
              'libutempter' 'libxcrypt' 'python' 'systemd')
