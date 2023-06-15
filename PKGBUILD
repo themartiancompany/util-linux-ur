@@ -34,13 +34,7 @@ sha256sums=('SKIP'
 
 _backports=(
   # current stable/v2.39
-  "${_tag}..8c85b08057a4664efe856de49b798b87a4e091af"
-
-  # libmount: introduce LIBMOUNT_FORCE_MOUNT2={always,never,auto}
-  'fd6b4d94ff013dc7ed680d4e864610da5b9751f1'
-
-  # meson: install setuid/setgid
-  '60d457f52991e6f6472171035974ce7a3ae621f3~1..cee78467bea45f7a4f890f0c65bd59441bd42697'
+  "${_tag}..205e88e51c11d039cd80c9f1104bee5555a4ddaa"
 )
 
 _reverts=(
@@ -62,10 +56,6 @@ prepare() {
     git log --oneline -1 "${_c}"
     git revert -n "${_c}"
   done
-
-  # a dirty hack for now...
-  # https://github.com/util-linux/util-linux/issues/2310
-  sed -i 's|HAVE_PTY|HAVE_PTY_H|' login-utils/su-common.c
 }
 
 build() {
