@@ -34,7 +34,7 @@ sha256sums=('SKIP'
 
 _backports=(
   # current stable/v2.39
-  "${_tag}..205e88e51c11d039cd80c9f1104bee5555a4ddaa"
+  "${_tag}..f5765e238b688a3787ffe78a5a4cbe74833e1a99"
 )
 
 _reverts=(
