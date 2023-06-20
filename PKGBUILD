@@ -7,7 +7,7 @@ pkgname=(util-linux util-linux-libs)
 _tag='8d7cca1a88bb347d7a0b5c32d2d2b1e8d71cafcc' # git rev-parse v${_tag_name}
 _tag_name=2.39
 pkgver=${_tag_name/-/}
-pkgrel=9
+pkgrel=10
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
@@ -34,7 +34,7 @@ sha256sums=('SKIP'
 
 _backports=(
   # current stable/v2.39
-  "${_tag}..f5765e238b688a3787ffe78a5a4cbe74833e1a99"
+  "${_tag}..868f7f10ce533a8d4b0fc4055749b97ba6fb670d"
 )
 
 _reverts=(
