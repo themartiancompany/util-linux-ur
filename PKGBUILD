@@ -7,7 +7,7 @@ pkgname=(util-linux util-linux-libs)
 _tag='8d7cca1a88bb347d7a0b5c32d2d2b1e8d71cafcc' # git rev-parse v${_tag_name}
 _tag_name=2.39
 pkgver=${_tag_name/-/}
-pkgrel=10
+pkgrel=11
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
@@ -34,7 +34,7 @@ sha256sums=('SKIP'
 
 _backports=(
   # current stable/v2.39
-  "${_tag}..868f7f10ce533a8d4b0fc4055749b97ba6fb670d"
+  "${_tag}..d9fca2b62e0322ff5a3dbc90605ac47d3d8b284f"
 )
 
 _reverts=(
@@ -43,19 +43,20 @@ _reverts=(
 prepare() {
   cd "${pkgbase}"
 
-  local _c
+  local _c _l
   for _c in "${_backports[@]}"; do
-    if [[ $_c == *..* ]]; then
-      git log --oneline --reverse "${_c}"
-    else
-      git log --oneline -1 "${_c}"
-    fi
-    git cherry-pick -n -m1 "${_c}"
+    if [[ "${_c}" == *..* ]]; then _l='--reverse'; else _l='--max-count=1'; fi
+    git log --oneline "${_l}" "${_c}"
+    git cherry-pick --mainline 1 --no-commit "${_c}"
   done
   for _c in "${_reverts[@]}"; do
-    git log --oneline -1 "${_c}"
-    git revert -n "${_c}"
+    if [[ "${_c}" == *..* ]]; then _l='--reverse'; else _l='--max-count=1'; fi
+    git log --oneline "${_l}" "${_c}"
+    git revert --mainline 1 --no-commit "${_c}"
   done
+
+  # do not mark dirty
+  sed -i '/dirty=/c dirty=' tools/git-version-gen
 }
 
 build() {
