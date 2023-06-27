@@ -4,10 +4,10 @@
 
 pkgbase=util-linux
 pkgname=(util-linux util-linux-libs)
-_tag='8d7cca1a88bb347d7a0b5c32d2d2b1e8d71cafcc' # git rev-parse v${_tag_name}
-_tag_name=2.39
+_tag='722ea47989cef5d892711614c4a2767213b177d8' # git rev-parse v${_tag_name}
+_tag_name=2.39.1
 pkgver=${_tag_name/-/}
-pkgrel=11
+pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=('git' 'meson' 'asciidoctor' 'bash-completion' 'libcap-ng'
 license=('GPL2')
 options=('strip')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
-source=("git+https://github.com/karelzak/util-linux#tag=${_tag}?signed"
+source=("git+https://github.com/util-linux/util-linux#tag=${_tag}?signed"
         pam-{login,common,runuser,su}
         'util-linux.sysusers'
         '60-rfkill.rules'
@@ -33,8 +33,6 @@ sha256sums=('SKIP'
             'a22e0a037e702170c7d88460cc9c9c2ab1d3e5c54a6985cd4a164ea7beff1b36')
 
 _backports=(
-  # current stable/v2.39
-  "${_tag}..d9fca2b62e0322ff5a3dbc90605ac47d3d8b284f"
 )
 
 _reverts=(
