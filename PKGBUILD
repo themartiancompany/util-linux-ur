@@ -90,9 +90,9 @@ package_util-linux() {
   conflicts=('rfkill' 'hardlink')
   provides=('rfkill' 'hardlink')
   replaces=('rfkill' 'hardlink')
-  depends=('pam' 'shadow' 'coreutils' 'systemd-libs' 'libsystemd.so'
+  depends=('glibc' 'pam' 'shadow' 'coreutils' 'systemd-libs' 'libsystemd.so'
            'libudev.so' 'libcap-ng' 'libutempter' 'libxcrypt' 'libcrypt.so' 'util-linux-libs'
-           'libmagic.so' 'libncursesw.so')
+           'libmagic.so' 'libncursesw.so' 'readline' 'zlib')
   optdepends=('words: default dictionary for look')
   backup=(etc/pam.d/chfn
           etc/pam.d/chsh
