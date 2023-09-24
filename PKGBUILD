@@ -14,22 +14,27 @@ arch=('x86_64')
 makedepends=('git' 'meson' 'asciidoctor' 'bash-completion' 'libcap-ng'
              'libutempter' 'libxcrypt' 'python' 'systemd')
 license=(
+  'BSD-2-Clause'
   'BSD-3-Clause'
   'BSD-4-Clause-UC'
+  'GPL-2.0-only'
   'GPL-2.0-or-later'
   'GPL-3.0-or-later'
   'ISC'
   'LGPL-2.1-or-later'
+  'LicenseRef-PublicDomain'
 )
 options=('strip')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
 source=("git+https://github.com/util-linux/util-linux#tag=${_tag}?signed"
+        $pkgbase-BSD-2-Clause.txt::https://raw.githubusercontent.com/Cyan4973/xxHash/f035303b8a86c1db9be70cbb638678ef6ef4cb2d/LICENSE
         pam-{login,common,runuser,su}
         'util-linux.sysusers'
         '60-rfkill.rules'
         'rfkill-unblock_.service'
         'rfkill-block_.service')
 sha256sums=('SKIP'
+            '6ffedbc0f7878612d2b23589f1ff2ab15633e1df7963a5d9fc750ec5500c7e7a'
             '99cd77f21ee44a0c5e57b0f3670f711a00496f198fc5704d7e44f5d817c81a0f'
             '57e057758944f4557762c6def939410c04ca5803cbdd2bfa2153ce47ffe7a4af'
             '48d6fba767631e3dd3620cf02a71a74c5d65a525d4c4ce4b5a0b7d9f41ebfea1'
@@ -146,6 +151,7 @@ package_util-linux() {
     "${pkgdir}/usr/lib/systemd/system/rfkill-block@.service"
 
   install -vDm 644 $pkgbase/Documentation/licenses/COPYING.{BSD*,ISC} -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $pkgbase-BSD-2-Clause.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
 package_util-linux-libs() {
@@ -163,4 +169,5 @@ package_util-linux-libs() {
   mv util-linux-libs/man3 "$pkgdir"/usr/share/man/man3
 
   install -vDm 644 $pkgbase/Documentation/licenses/COPYING.{BSD*,ISC} -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $pkgbase-BSD-2-Clause.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
