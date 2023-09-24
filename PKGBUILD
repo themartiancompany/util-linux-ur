@@ -28,15 +28,16 @@ options=('strip')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
 source=("git+https://github.com/util-linux/util-linux#tag=${_tag}?signed"
         $pkgbase-BSD-2-Clause.txt::https://raw.githubusercontent.com/Cyan4973/xxHash/f035303b8a86c1db9be70cbb638678ef6ef4cb2d/LICENSE
-        pam-{login,common,runuser,su}
+        pam-{login,common,remote,runuser,su}
         'util-linux.sysusers'
         '60-rfkill.rules'
         'rfkill-unblock_.service'
         'rfkill-block_.service')
 sha256sums=('SKIP'
             '6ffedbc0f7878612d2b23589f1ff2ab15633e1df7963a5d9fc750ec5500c7e7a'
-            '99cd77f21ee44a0c5e57b0f3670f711a00496f198fc5704d7e44f5d817c81a0f'
+            'ee917d55042f78b8bb03f5467e5233e3e2ddc2fe01e302bc53b218003fe22275'
             '57e057758944f4557762c6def939410c04ca5803cbdd2bfa2153ce47ffe7a4af'
+            '8bfbee453618ba44d60ba7fb00eced6c62edebfc592f2e75dede08e769ed8931'
             '48d6fba767631e3dd3620cf02a71a74c5d65a525d4c4ce4b5a0b7d9f41ebfea1'
             '3f54249ac2db44945d6d12ec728dcd0d69af0735787a8b078eacd2c67e38155b'
             '10b0505351263a099163c0d928132706e501dd0a008dac2835b052167b14abe3'
@@ -102,6 +103,7 @@ package_util-linux() {
   backup=(etc/pam.d/chfn
           etc/pam.d/chsh
           etc/pam.d/login
+          etc/pam.d/remote
           etc/pam.d/runuser
           etc/pam.d/runuser-l
           etc/pam.d/su
@@ -121,6 +123,7 @@ package_util-linux() {
   install -Dm0644 pam-common "${pkgdir}/etc/pam.d/chfn"
   install -m0644 pam-common "${pkgdir}/etc/pam.d/chsh"
   install -m0644 pam-login "${pkgdir}/etc/pam.d/login"
+  install -m0644 pam-remote "${pkgdir}/etc/pam.d/remote"
   install -m0644 pam-runuser "${pkgdir}/etc/pam.d/runuser"
   install -m0644 pam-runuser "${pkgdir}/etc/pam.d/runuser-l"
   install -m0644 pam-su "${pkgdir}/etc/pam.d/su"
