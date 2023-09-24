@@ -13,7 +13,14 @@ url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
 makedepends=('git' 'meson' 'asciidoctor' 'bash-completion' 'libcap-ng'
              'libutempter' 'libxcrypt' 'python' 'systemd')
-license=('GPL2')
+license=(
+  'BSD-3-Clause'
+  'BSD-4-Clause-UC'
+  'GPL-2.0-or-later'
+  'GPL-3.0-or-later'
+  'ISC'
+  'LGPL-2.1-or-later'
+)
 options=('strip')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
 source=("git+https://github.com/util-linux/util-linux#tag=${_tag}?signed"
@@ -137,6 +144,8 @@ package_util-linux() {
     "${pkgdir}/usr/lib/systemd/system/rfkill-unblock@.service"
   install -Dm0644 rfkill-block_.service \
     "${pkgdir}/usr/lib/systemd/system/rfkill-block@.service"
+
+  install -vDm 644 $pkgbase/Documentation/licenses/COPYING.{BSD*,ISC} -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
 package_util-linux-libs() {
@@ -152,4 +161,6 @@ package_util-linux-libs() {
   mv util-linux-libs/include "$pkgdir"/usr/include
   mv util-linux-libs/site-packages "$pkgdir"/"${_python_stdlib}"/site-packages
   mv util-linux-libs/man3 "$pkgdir"/usr/share/man/man3
+
+  install -vDm 644 $pkgbase/Documentation/licenses/COPYING.{BSD*,ISC} -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
