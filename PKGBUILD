@@ -4,9 +4,8 @@
 
 pkgbase=util-linux
 pkgname=(util-linux util-linux-libs)
-_tag='7f7be3ee7248915b50190b5845eadb67b2e21a02' # git rev-parse v${_tag_name}
-_tag_name=2.40-rc2
-pkgver=${_tag_name/-/}
+_tag='2.40-rc2'
+pkgver="${_tag/-/}"
 pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
@@ -34,14 +33,14 @@ license=(
 )
 options=('strip')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
-source=("git+https://github.com/util-linux/util-linux#tag=${_tag}?signed"
+source=("git+https://github.com/util-linux/util-linux#tag=v${_tag}?signed"
         $pkgbase-BSD-2-Clause.txt::https://raw.githubusercontent.com/Cyan4973/xxHash/f035303b8a86c1db9be70cbb638678ef6ef4cb2d/LICENSE
         pam-{login,common,remote,runuser,su}
         'util-linux.sysusers'
         '60-rfkill.rules'
         'rfkill-unblock_.service'
         'rfkill-block_.service')
-sha256sums=('SKIP'
+sha256sums=('f15b74b9927426ea71b0ecf2ffaf4d3c71220ae791c700a42497985dbd3f8b01'
             '6ffedbc0f7878612d2b23589f1ff2ab15633e1df7963a5d9fc750ec5500c7e7a'
             'ee917d55042f78b8bb03f5467e5233e3e2ddc2fe01e302bc53b218003fe22275'
             '57e057758944f4557762c6def939410c04ca5803cbdd2bfa2153ce47ffe7a4af'
