@@ -6,7 +6,7 @@ pkgbase=util-linux
 pkgname=(util-linux util-linux-libs)
 _tag='2.40-rc2'
 pkgver="${_tag/-/}"
-pkgrel=1
+pkgrel=2
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
@@ -53,6 +53,8 @@ sha256sums=('f15b74b9927426ea71b0ecf2ffaf4d3c71220ae791c700a42497985dbd3f8b01'
             'a22e0a037e702170c7d88460cc9c9c2ab1d3e5c54a6985cd4a164ea7beff1b36')
 
 _backports=(
+  # current stable/v2.40
+  "v${_tag}..175af5cb8e0434bbc6660f7ccbea3a188d8f2d72"
 )
 
 _reverts=(
