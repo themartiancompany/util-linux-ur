@@ -14,7 +14,6 @@ makedepends=('asciidoctor'
              'bash-completion'
              'git'
              'libcap-ng'
-             'libutempter'
              'libxcrypt'
              'meson'
              'python'
@@ -82,6 +81,7 @@ build() {
     -Dfs-search-path=/usr/bin:/usr/local/bin
 
     -Dlibuser=disabled
+    -Dlibutempter=disabled
     -Dncurses=disabled
     -Dncursesw=enabled
     -Deconf=disabled
@@ -107,7 +107,6 @@ package_util-linux() {
            'file' 'libmagic.so'
            'glibc'
            'libcap-ng'
-           'libutempter'
            'libxcrypt' 'libcrypt.so'
            'ncurses' 'libncursesw.so'
            'pam'
