@@ -4,9 +4,9 @@
 
 pkgbase=util-linux
 pkgname=(util-linux util-linux-libs)
-_tag='2.40-rc2'
+_tag='2.40'
 pkgver="${_tag/-/}"
-pkgrel=2
+pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
@@ -40,7 +40,7 @@ source=("git+https://github.com/util-linux/util-linux#tag=v${_tag}?signed"
         '60-rfkill.rules'
         'rfkill-unblock_.service'
         'rfkill-block_.service')
-sha256sums=('f15b74b9927426ea71b0ecf2ffaf4d3c71220ae791c700a42497985dbd3f8b01'
+sha256sums=('153ae22d30a04e8c3ef1edbac63081f21b2d7622467dd7bf324f7f45e45b343d'
             '6ffedbc0f7878612d2b23589f1ff2ab15633e1df7963a5d9fc750ec5500c7e7a'
             'ee917d55042f78b8bb03f5467e5233e3e2ddc2fe01e302bc53b218003fe22275'
             '57e057758944f4557762c6def939410c04ca5803cbdd2bfa2153ce47ffe7a4af'
@@ -53,8 +53,6 @@ sha256sums=('f15b74b9927426ea71b0ecf2ffaf4d3c71220ae791c700a42497985dbd3f8b01'
             'a22e0a037e702170c7d88460cc9c9c2ab1d3e5c54a6985cd4a164ea7beff1b36')
 
 _backports=(
-  # current stable/v2.40
-  "v${_tag}..175af5cb8e0434bbc6660f7ccbea3a188d8f2d72"
 )
 
 _reverts=(
@@ -74,9 +72,6 @@ prepare() {
     git log --oneline "${_l}" "${_c}"
     git revert --mainline 1 --no-commit "${_c}"
   done
-
-  # fast-forward to current master
-  #git merge master
 
   # do not mark dirty
   sed -i '/dirty=/c dirty=' tools/git-version-gen
