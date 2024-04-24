@@ -103,7 +103,8 @@ package_util-linux() {
   conflicts=('rfkill' 'hardlink')
   provides=('rfkill' 'hardlink')
   replaces=('rfkill' 'hardlink')
-  depends=('coreutils'
+  depends=("util-linux-libs=${pkgver}"
+           'coreutils'
            'file' 'libmagic.so'
            'glibc'
            'libcap-ng'
@@ -113,7 +114,6 @@ package_util-linux() {
            'readline'
            'shadow'
            'systemd-libs' 'libsystemd.so' 'libudev.so'
-           'util-linux-libs'
            'zlib')
   optdepends=('words: default dictionary for look')
   backup=(etc/pam.d/chfn
