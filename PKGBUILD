@@ -207,7 +207,7 @@ build() {
       -Dbuild-pam-lastlog2=disabled
       -Dbuild-chfn-chsh=disabled
       -Dbuild-su=disabled
-      -Dbuild-runuser=false
+      -Dbuild-runuser=disabled
     )
   elif [[ "${_pam}" == "true" ]]; then
     _meson_options+=(
