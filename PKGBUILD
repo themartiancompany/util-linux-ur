@@ -12,11 +12,13 @@ _os="$( \
 _py="python"
 _offline="false"
 _git="false"
-_systemd="true"
+_btrfs='true'
 _pam="true"
+_systemd="true"
 if [[ "${_os}" == "Android" ]]; then
-  _systemd="false"
+  _btrfs='false'
   _pam="false"
+  _systemd="false"
 fi
 _pkg=util-linux
 pkgbase="${_pkg}"
@@ -196,6 +198,11 @@ build() {
     -Dbuild-vipw=enabled
     -Dbuild-write=enabled
   )
+  if [[ "${_btrfs}" == "false" ]]; then
+    _meson_options+=(
+      -Dbtrfs=disabled
+    )
+  fi
   if [[ "${_systemd}" == "false" ]]; then
     _meson_options+=(
       -Dsystemd=disabled
@@ -296,11 +303,14 @@ package_util-linux() {
   # remove static libraries
   rm \
     "${pkgdir}"/usr/lib/lib*.a*
+  chmod \
+    4755 \
+    "${pkgdir}/usr/bin/newgrp"
   if [[ "${_pam}" == "true" ]]; then
     # setuid chfn and chsh
     chmod \
       4755 \
-      "${pkgdir}/usr/bin/"{"newgrp","ch"{"sh","fn"}}
+      "${pkgdir}/usr/bin/"{"ch"{"sh","fn"}}
     # install PAM files for login-utils
     install \
       -Dm0644 \
