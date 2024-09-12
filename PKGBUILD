@@ -64,7 +64,7 @@ _xxhash_commit="f035303b8a86c1db9be70cbb638678ef6ef4cb2d"
 source=()
 sha256sums=()
 _url="${url}"
-_tag="v${pkgver}"
+_tag="${pkgver}"
 _tag_name="tag"
 _tarname="${pkgname}-${_tag}"
 [[ "${_offline}" == "true" ]] && \
@@ -74,15 +74,15 @@ _tarname="${pkgname}-${_tag}"
     "git"
   ) && \
   source+=(
-    "${_tarname}::git+${_url}#${_tag_name}=${_tag}?signed"
+    "${_tarname}::git+${_url}#v${_tag_name}=${_tag}?signed"
   ) && \
   sha256sums+=(
     'ccae05afaddd61119bbf35173f7045d1c8e98cc42c1355f5e9072433ebc42ee1'
   )
 [[ "${_git}" == false ]] && \
   if [[ "${_tag_name}" == 'tag' ]]; then
-    _tar="${_tarname}.tar.gz::${_url}/archive/refs/tags/${_tag}.tar.gz"
-    _sum="d4f4179c6e4ce1702c5fe6af132669e8ec4d0378428f69518f2926b969663a91"
+    _tar="${_tarname}.tar.gz::${_url}/archive/refs/tags/v${_tag}.tar.gz"
+    _sum="8e5f5de12d1b02d44e2511e5f2c6c36236a5331b1cd915c2f7e8868bac677ace"
   elif [[ "${_tag_name}" == "commit" ]]; then
     _tar="${_tarname}.zip::${_url}/archive/${_commit}.zip"
     _sum="c5b5e48094cfe4be92e3708760e9c10e9ea4bb0e31587cb47dea233692602822"
