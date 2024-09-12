@@ -31,7 +31,7 @@ pkgbase = util-linux
 	makedepends = sqlite
 	makedepends = systemd
 	options = strip
-	source = git+#tag=v2.40.2?signed
+	source = git+https://github.com/util-linux/util-linux#tag=v2.40.2?signed
 	source = util-linux-BSD-2-Clause.txt::https://raw.githubusercontent.com/Cyan4973/xxHash/f035303b8a86c1db9be70cbb638678ef6ef4cb2d/LICENSE
 	source = pam-login
 	source = pam-common

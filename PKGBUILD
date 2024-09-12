@@ -57,7 +57,7 @@ validpgpkeys=(
 _gh="https://raw.githubusercontent.com"
 _xxhash_commit="f035303b8a86c1db9be70cbb638678ef6ef4cb2d"
 source=(
-  "git+${_url}#tag=v${_tag}?signed"
+  "git+${url}#tag=v${_tag}?signed"
   "${_pkg}-BSD-2-Clause.txt::${_gh}/Cyan4973/xxHash/${_xxhash_commit}/LICENSE"
   pam-{login,common,remote,runuser,su}
   "${_pkg}.sysusers"
