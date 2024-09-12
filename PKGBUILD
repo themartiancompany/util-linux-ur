@@ -1,3 +1,7 @@
+# SPDX-License-Identifier: AGPL-3.0
+#
+# Maintainer: Truocolo <truocolo@aol.com>
+# Maintainer: Pellegrino Prevete (tallero) <pellegrinoprevete@gmail.com>
 # Maintainer: Tom Gundersen <teg@jklm.no>
 # Maintainer: Dave Reisner <dreisner@archlinux.org>
 # Contributor: judd <jvinet@zeroflux.org>
@@ -367,3 +371,4 @@ package_util-linux-libs() {
     -t \
     "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
+
