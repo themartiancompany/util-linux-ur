@@ -6,9 +6,18 @@
 # Maintainer: Dave Reisner <dreisner@archlinux.org>
 # Contributor: judd <jvinet@zeroflux.org>
 
+_os="$( \
+  uname \
+    -o)"
 _py="python"
 _offline="false"
 _git="false"
+_systemd="true"
+_pam="true"
+if [[ "${_os}" == "Android" ]]; then
+  _systemd="false"
+  _pam="false"
+fi
 _pkg=util-linux
 pkgbase="${_pkg}"
 pkgname=(
@@ -39,8 +48,12 @@ makedepends=(
   'meson'
   "${_py}"
   'sqlite'
-  'systemd'
 )
+if [[ "${_systemd}" == "true" ]]; then
+  makedepends+=(
+    'systemd'
+  )
+fi
 license=(
   'BSD-2-Clause'
   'BSD-3-Clause'
@@ -177,13 +190,30 @@ build() {
     -Dncurses=disabled
     -Dncursesw=enabled
     -Deconf=disabled
-    -Dbuild-chfn-chsh=enabled
     -Dbuild-line=disabled
     -Dbuild-mesg=enabled
     -Dbuild-newgrp=enabled
     -Dbuild-vipw=enabled
     -Dbuild-write=enabled
   )
+  if [[ "${_systemd}" == "false" ]]; then
+    _meson_options+=(
+      -Dsystemd=disabled
+    )
+  fi
+  if [[ "${_pam}" == "false" ]]; then
+    _meson_options+=(
+      -Dbuild-login=disabled
+      -Dbuild-pam-lastlog2=disabled
+      -Dbuild-chfn-chsh=disabled
+      -Dbuild-su=disabled
+      -Dbuild-runuser=false
+    )
+  elif [[ "${_pam}" == "true" ]]; then
+    _meson_options+=(
+      -Dbuild-chfn-chsh=enabled
+    )
+  fi
   arch-meson \
     "${_tarname}" \
     build \
@@ -221,14 +251,22 @@ package_util-linux() {
     'libcrypt.so'
     'ncurses'
     'libncursesw.so'
-    'pam'
     'readline'
     'shadow'
-    'systemd-libs'
-    'libsystemd.so'
     'libudev.so'
     'zlib'
   )
+  if [[ "${_pam}" == "true" ]]; then
+    depends+=(
+      'pam'
+    )
+  fi
+  if [[ "${_systemd}" == "true" ]]; then
+    depends+=(
+      'libsystemd.so'
+      'systemd-libs'
+    )
+  fi
   optdepends=(
     'words: default dictionary for look'
   )
@@ -258,48 +296,52 @@ package_util-linux() {
   # remove static libraries
   rm \
     "${pkgdir}"/usr/lib/lib*.a*
-  # setuid chfn and chsh
-  chmod \
-    4755 \
-    "${pkgdir}/usr/bin/"{"newgrp","ch"{"sh","fn"}}
-  # install PAM files for login-utils
-  install \
-    -Dm0644 \
-    pam-common \
-    "${pkgdir}/etc/pam.d/chfn"
-  install \
-    -m0644 \
-    pam-common \
-    "${pkgdir}/etc/pam.d/chsh"
-  install \
-    -m0644 \
-    pam-login \
-    "${pkgdir}/etc/pam.d/login"
-  install \
-    -m0644 \
-    pam-remote \
-    "${pkgdir}/etc/pam.d/remote"
-  install \
-    -m0644 \
-    pam-runuser \
-    "${pkgdir}/etc/pam.d/runuser"
-  install \
-    -m0644 \
-    pam-runuser \
-    "${pkgdir}/etc/pam.d/runuser-l"
-  install \
-    -m0644 \
-    pam-su \
-    "${pkgdir}/etc/pam.d/su"
-  install \
-    -m0644 \
-    pam-su \
-    "${pkgdir}/etc/pam.d/su-l"
-  # TODO(dreisner): offer this upstream?
-  sed \
-    -i \
-    '/ListenStream/ aRuntimeDirectory=uuidd' \
-    "${pkgdir}/usr/lib/systemd/system/uuidd.socket"
+  if [[ "${_pam}" == "true" ]]; then
+    # setuid chfn and chsh
+    chmod \
+      4755 \
+      "${pkgdir}/usr/bin/"{"newgrp","ch"{"sh","fn"}}
+    # install PAM files for login-utils
+    install \
+      -Dm0644 \
+      pam-common \
+      "${pkgdir}/etc/pam.d/chfn"
+    install \
+      -m0644 \
+      pam-common \
+      "${pkgdir}/etc/pam.d/chsh"
+    install \
+      -m0644 \
+      pam-login \
+      "${pkgdir}/etc/pam.d/login"
+    install \
+      -m0644 \
+      pam-remote \
+      "${pkgdir}/etc/pam.d/remote"
+    install \
+      -m0644 \
+      pam-runuser \
+      "${pkgdir}/etc/pam.d/runuser"
+    install \
+      -m0644 \
+      pam-runuser \
+      "${pkgdir}/etc/pam.d/runuser-l"
+    install \
+      -m0644 \
+      pam-su \
+      "${pkgdir}/etc/pam.d/su"
+    install \
+      -m0644 \
+      pam-su \
+      "${pkgdir}/etc/pam.d/su-l"
+  fi
+  if [[ "${_systemd}" == "true" ]]; then
+    # TODO(dreisner): offer this upstream?
+    sed \
+      -i \
+      '/ListenStream/ aRuntimeDirectory=uuidd' \
+      "${pkgdir}/usr/lib/systemd/system/uuidd.socket"
+  fi
   # runtime libs are shipped as part of util-linux-libs
   install \
     -dm0755 \
