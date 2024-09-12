@@ -7,6 +7,8 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 _py="python"
+_offline="false"
+_git="false"
 _pkg=util-linux
 pkgbase="${_pkg}"
 pkgname=(
@@ -32,7 +34,6 @@ arch=(
 makedepends=(
   'asciidoctor'
   'bash-completion'
-  'git'
   'libcap-ng'
   'libxcrypt'
   'meson'
@@ -60,8 +61,39 @@ validpgpkeys=(
 )
 _gh="https://raw.githubusercontent.com"
 _xxhash_commit="f035303b8a86c1db9be70cbb638678ef6ef4cb2d"
-source=(
-  "git+${url}#tag=v${_tag}?signed"
+source=()
+sha256sums=()
+_url="${url}"
+_tag="v${pkgver}"
+_tag_name="tag"
+_tarname="${pkgname}-${_tag}"
+[[ "${_offline}" == "true" ]] && \
+  _url="file://${HOME}/${pkgname}"
+[[ "${_git}" == true ]] && \
+  makedepends+=(
+    "git"
+  ) && \
+  source+=(
+    "${_tarname}::git+${_url}#${_tag_name}=${_tag}?signed"
+  ) && \
+  sha256sums+=(
+    'ccae05afaddd61119bbf35173f7045d1c8e98cc42c1355f5e9072433ebc42ee1'
+  )
+[[ "${_git}" == false ]] && \
+  if [[ "${_tag_name}" == 'tag' ]]; then
+    _tar="${_tarname}.tar.gz::${_url}/archive/refs/tags/${_tag}.tar.gz"
+    _sum="d4f4179c6e4ce1702c5fe6af132669e8ec4d0378428f69518f2926b969663a91"
+  elif [[ "${_tag_name}" == "commit" ]]; then
+    _tar="${_tarname}.zip::${_url}/archive/${_commit}.zip"
+    _sum="c5b5e48094cfe4be92e3708760e9c10e9ea4bb0e31587cb47dea233692602822"
+  fi && \
+    source+=(
+      "${_tar}"
+    ) && \
+    sha256sums+=(
+      "${_sum}"
+    )
+source+=(
   "${_pkg}-BSD-2-Clause.txt::${_gh}/Cyan4973/xxHash/${_xxhash_commit}/LICENSE"
   pam-{login,common,remote,runuser,su}
   "${_pkg}.sysusers"
@@ -69,8 +101,7 @@ source=(
   'rfkill-unblock_.service'
   'rfkill-block_.service'
 )
-sha256sums=(
-  'ccae05afaddd61119bbf35173f7045d1c8e98cc42c1355f5e9072433ebc42ee1'
+sha256sums+=(
   '6ffedbc0f7878612d2b23589f1ff2ab15633e1df7963a5d9fc750ec5500c7e7a'
   'ee917d55042f78b8bb03f5467e5233e3e2ddc2fe01e302bc53b218003fe22275'
   '57e057758944f4557762c6def939410c04ca5803cbdd2bfa2153ce47ffe7a4af'
@@ -82,10 +113,8 @@ sha256sums=(
   '8ccec10a22523f6b9d55e0d6cbf91905a39881446710aa083e935e8073323376'
   'a22e0a037e702170c7d88460cc9c9c2ab1d3e5c54a6985cd4a164ea7beff1b36'
 )
-
 _backports=(
 )
-
 _reverts=(
 )
 
@@ -94,7 +123,7 @@ prepare() {
     _c \
     _l
   cd \
-    "${pkgbase}"
+    "${_tarname}"
   for _c in "${_backports[@]}"; do
     if [[ "${_c}" == *..* ]]; then
       _l='--reverse';
@@ -156,7 +185,7 @@ build() {
     -Dbuild-write=enabled
   )
   arch-meson \
-    "${_pkg}" \
+    "${_tarname}" \
     build \
       "${_meson_options[@]}"
   meson \
